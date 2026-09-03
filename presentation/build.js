@@ -165,7 +165,7 @@ function callout(s, txt, y, opt){
   const cards = [
     ["1","Skill","AI가 따르는 작업 지침서","특정 상황에서 따라야 할 순서와 기준을 적어 둔, 재사용 가능한 문서입니다."],
     ["2","Superpowers","Skill 14개를 모은 오픈소스","Brainstorming·TDD·검증 등 개발 절차를 묶어 GitHub에 공개한 플러그인입니다."],
-    ["3","Codex","실제로 작업하는 AI 에이전트","파일을 읽고 고치고, 명령을 실행하고, 테스트로 결과까지 확인합니다."],
+    ["3","Codex","실제로 작업하는 AI 에이전트","답변만 하는 챗봇과 달리, 파일을 직접 고치고 명령을 실행하고 테스트로 결과까지 확인합니다."],
   ];
   const cw = (CW - 0.8)/3, ch = 3.5;
   cards.forEach((c,i)=>{
@@ -190,37 +190,11 @@ function callout(s, txt, y, opt){
     { text:"검증된 결과물", options:{ bold:true, color:"7FA6FF" } },
   ], { isTextBox:true, x:MX, y:5.44, w:CW, h:0.78, margin:0, align:"center", valign:"middle",
        fontFace:F, fontSize:14.5 });
-  foot(s, "플러그인으로 설치하면 Codex가 필요한 Skill을 읽고 그 절차대로 작업·검증합니다.");
-  s.addNotes("[Sources]\nhttps://learn.chatgpt.com/ko-KR/docs/skills-and-plugins\nhttps://github.com/obra/superpowers");
+  foot(s, "플러그인으로 설치하면 Codex가 필요한 Skill을 읽고 그 절차대로 작업·검증합니다. · 앱 · CLI · IDE 등 사용 환경에 따라 쓸 수 있는 기능은 달라질 수 있습니다.");
+  s.addNotes("[Sources]\nhttps://learn.chatgpt.com/ko-KR/docs/skills-and-plugins\nhttps://github.com/obra/superpowers\nhttps://developers.openai.com/codex");
 }
 
-/* ───────────────────────── 05 · CODEX ───────────────────────── */
-{
-  const s = newSlide();
-  head(s, "02 무엇인가", "Codex는 답만 하는 챗봇에서 한 걸음 더 나갑니다");
-  const cw = (CW - 0.4)/2, ch = 3.5;
-  const data = [
-    { t:"일반 챗봇", sub:"설명과 코드 예시 중심", dark:false,
-      it:["질문에 답변합니다","코드 예시를 보여 줍니다","파일 반영은 사용자가 직접 합니다"] },
-    { t:"Codex", sub:"프로젝트 안에서 직접 작업", dark:true,
-      it:["프로젝트 파일을 읽고 수정합니다","터미널 명령을 실행합니다","테스트를 돌려 결과를 확인합니다"] },
-  ];
-  data.forEach((d,i)=>{
-    const x = MX + i*(cw+0.4);
-    rrect(s, { x, y:TOP, w:cw, h:ch, fill: d.dark ? P.ink : P.card, lineColor: d.dark ? null : P.line });
-    s.addText(d.t, { isTextBox:true, x:x+0.46, y:TOP+0.42, w:cw-0.92, h:0.4, margin:0,
-      fontFace:F, fontSize:20, bold:true, color: d.dark ? P.white : P.ink });
-    s.addText(d.sub, { isTextBox:true, x:x+0.46, y:TOP+0.88, w:cw-0.92, h:0.32, margin:0,
-      fontFace:F, fontSize:12.5, color: d.dark ? P.amber : P.gray2 });
-    bullets(s, d.it, { x:x+0.46, y:TOP+1.5, w:cw-0.92, h:1.9, fs:13, gap:20,
-      color: d.dark ? "C3CFE2" : P.gray });
-  });
-  callout(s, "Codex = 목표를 받아 실제 개발 작업을 수행하는 AI 코딩 에이전트", 5.42);
-  foot(s, "앱 · CLI · IDE 등 사용 환경에 따라 쓸 수 있는 기능은 달라질 수 있습니다. · developers.openai.com/codex");
-  s.addNotes("[Sources]\nhttps://developers.openai.com/codex");
-}
-
-/* ───────────────────────── 06 · REPO ───────────────────────── */
+/* ───────────────────────── 05 · REPO ───────────────────────── */
 {
   const s = newSlide();
   head(s, "02 무엇인가", "Superpowers는 GitHub에 공개된 저장소입니다");
@@ -252,7 +226,7 @@ function callout(s, txt, y, opt){
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers/tree/main/skills");
 }
 
-/* ───────────────────────── 07 · HOW MODEL PICKS ───────────────────────── */
+/* ───────────────────────── 06 · HOW MODEL PICKS ───────────────────────── */
 {
   const s = newSlide();
   head(s, "03 어떻게 고르는가", "모델은 요청과 Skill 설명을 비교해 절차를 고릅니다");
@@ -295,7 +269,7 @@ function callout(s, txt, y, opt){
   s.addNotes("[Sources]\nhttps://learn.chatgpt.com/ko-KR/docs/skills-and-plugins");
 }
 
-/* ───────────────────────── 08 · FLOW ───────────────────────── */
+/* ───────────────────────── 07 · FLOW ───────────────────────── */
 {
   const s = newSlide();
   head(s, "03 어떻게 고르는가", "아이디어에서 완료까지, 한 줄로 이어집니다");
@@ -335,7 +309,7 @@ function callout(s, txt, y, opt){
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers");
 }
 
-/* ───────────────────────── 09 · MAP ───────────────────────── */
+/* ───────────────────────── 08 · MAP ───────────────────────── */
 {
   const s = newSlide();
   head(s, "03 어떻게 고르는가", "14개 Skill은 세 묶음으로 나뉩니다");
@@ -362,7 +336,7 @@ function callout(s, txt, y, opt){
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers/tree/main/skills");
 }
 
-/* ───────────── 10~12 · SKILL GROUPS ───────────── */
+/* ───────────── 09~11 · SKILL GROUPS ───────────── */
 function skillSlide(kicker, title, cols, items, summary, note){
   const s = newSlide();
   head(s, kicker, title);
@@ -410,7 +384,7 @@ skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결�
 ], "공통 목적 — “된 것 같다”가 아니라 확인된 결과로 끝냅니다",
    "Skill 이름은 Superpowers 6.3.0 기준입니다. · github.com/obra/superpowers/tree/main/skills");
 
-/* ───────────────────────── 13 · INSTALL ───────────────────────── */
+/* ───────────────────────── 12 · INSTALL ───────────────────────── */
 {
   const s = newSlide();
   head(s, "04 어떻게 쓰는가", "Codex 앱에서 클릭 몇 번으로 설치합니다");
@@ -438,7 +412,7 @@ skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결�
   s.addNotes("[Sources]\nhttps://learn.chatgpt.com/ko-KR/docs/plugins\nUser-provided screenshot captured 2026-09-03");
 }
 
-/* ───────────────────────── 14 · AFTER INSTALL ───────────────────────── */
+/* ───────────────────────── 13 · AFTER INSTALL ───────────────────────── */
 {
   const s = newSlide();
   head(s, "04 어떻게 쓰는가", "설치 후에는 14개 Skill을 켜고 끌 수 있습니다");
@@ -465,7 +439,7 @@ skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결�
   s.addNotes("[Sources]\nUser-provided screenshot captured 2026-09-03\nhttps://learn.chatgpt.com/ko-KR/docs/plugins");
 }
 
-/* ───────────────────────── 15 · BRAINSTORMING ───────────────────────── */
+/* ───────────────────────── 14 · BRAINSTORMING ───────────────────────── */
 {
   const s = newSlide();
   head(s, "04 어떻게 쓰는가", "Brainstorming은 바로 코딩하지 않고 하나씩 묻습니다");
@@ -496,7 +470,7 @@ skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결�
   s.addNotes("[Sources]\nUser-provided screenshot captured 2026-09-03\nhttps://github.com/obra/superpowers/tree/main/skills/brainstorming");
 }
 
-/* ───────────────────────── 16 · OPTIONS ───────────────────────── */
+/* ───────────────────────── 15 · OPTIONS ───────────────────────── */
 {
   const s = newSlide();
   head(s, "04 어떻게 쓰는가", "질문이 끝나면 대안을 비교하고 하나를 추천합니다");
@@ -532,7 +506,7 @@ skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결�
   s.addNotes("[Sources]\nUser-provided screenshot captured 2026-09-03\nhttps://github.com/obra/superpowers/tree/main/skills/brainstorming");
 }
 
-/* ───────────────────────── 17 · RESULT ───────────────────────── */
+/* ───────────────────────── 16 · RESULT ───────────────────────── */
 {
   const s = newSlide();
   head(s, "04 어떻게 쓰는가", "결과보다 중요한 건, 과정이 기록으로 남았다는 점입니다");
@@ -570,7 +544,7 @@ skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결�
   s.addNotes("[Sources]\nUser-provided screenshot captured 2026-09-03\nhttps://github.com/obra/superpowers");
 }
 
-/* ───────────────────────── 18 · CLOSING ───────────────────────── */
+/* ───────────────────────── 17 · CLOSING ───────────────────────── */
 {
   const s = newSlide(true);
   s.addText("정리", { isTextBox:true, x:MX+0.2, y:0.9, w:6, h:0.4, margin:0,
