@@ -110,8 +110,8 @@ function callout(s, txt, y, opt){
   const rows = [
     ["01","왜 필요한가","바로 코딩을 시작할 때 생기는 문제"],
     ["02","무엇인가","Skill · Superpowers · Codex, 세 단어 정리"],
-    ["03","어떻게 고르는가","모델이 Skill을 선택하는 방식과 14개 Skill"],
-    ["04","어떻게 쓰는가","설치부터 실제 결과·검증까지"],
+    ["03","어떤 Skill이 있는가","전체 흐름과 14개 Skill의 세 가지 종류"],
+    ["04","어떻게 쓰는가","Skill 호출 방법, 설치, 실제 결과·검증까지"],
   ];
   const cw = (CW - 0.4)/2, ch = 1.9;
   rows.forEach((r,i)=>{
@@ -226,53 +226,10 @@ function callout(s, txt, y, opt){
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers/tree/main/skills");
 }
 
-/* ───────────────────────── 06 · HOW MODEL PICKS ───────────────────────── */
+/* ───────────────────────── 06 · FLOW ───────────────────────── */
 {
   const s = newSlide();
-  head(s, "03 어떻게 고르는가", "모델은 요청과 Skill 설명을 비교해 절차를 고릅니다");
-  const n = 5, gap = 0.22, cw = (CW - gap*(n-1))/n, ch = 2.02;
-  const steps = [
-    ["사용자 요청","“오류 원인을 찾아줘”"],
-    ["Skill 목록 확인","이름과 설명을 훑습니다"],
-    ["용도 비교","요청과 맞는지 판단합니다"],
-    ["Skill 호출","전체 지침을 읽습니다"],
-    ["절차 실행","진단·검증을 수행합니다"],
-  ];
-  steps.forEach((st,i)=>{
-    const x = MX + i*(cw+gap);
-    const hot = (i===1 || i===3);
-    rrect(s, { x, y:TOP+0.1, w:cw, h:ch, fill: hot ? P.blueSoft : P.card, lineColor: hot ? P.blueLine : P.line });
-    chip(s, x+0.3, TOP+0.4, String(i+1), { d:0.34, fs:12, fill: hot ? P.blue : P.ink });
-    s.addText(st[0], { isTextBox:true, x:x+0.26, y:TOP+0.94, w:cw-0.52, h:0.36, margin:0,
-      fontFace:F, fontSize:13.5, bold:true, color:P.ink });
-    s.addText(st[1], { isTextBox:true, x:x+0.26, y:TOP+1.34, w:cw-0.52, h:0.56, margin:0,
-      fontFace:F, fontSize:11, color:P.gray, lineSpacingMultiple:1.2 });
-    if (i < n-1){
-      s.addText("›", { isTextBox:true, x:x+cw, y:TOP+0.9, w:gap, h:0.4, margin:0, align:"center",
-        fontFace:F, fontSize:22, bold:true, color:P.gray2 });
-    }
-  });
-  const bw = (CW - 0.4)/2, by = 4.34, bh = 1.5;
-  const boxes = [
-    { t:"자동 호출", d:"요청의 의미가 Skill 설명과 맞으면 모델이 알아서 선택합니다.", hot:true },
-    { t:"직접 호출", d:"Codex에서 $로 고르거나 “Brainstorming Skill을 써줘”라고 지정합니다.", hot:false },
-  ];
-  boxes.forEach((b,i)=>{
-    const x = MX + i*(bw+0.4);
-    rrect(s, { x, y:by, w:bw, h:bh, fill: b.hot ? P.ink : P.card, lineColor: b.hot ? null : P.line });
-    s.addText(b.t, { isTextBox:true, x:x+0.42, y:by+0.3, w:bw-0.84, h:0.34, margin:0,
-      fontFace:F, fontSize:15, bold:true, color: b.hot ? P.amber : P.ink });
-    s.addText(b.d, { isTextBox:true, x:x+0.42, y:by+0.72, w:bw-0.84, h:0.6, margin:0,
-      fontFace:F, fontSize:12.5, color: b.hot ? "C3CFE2" : P.gray, lineSpacingMultiple:1.25 });
-  });
-  foot(s, "출처 · learn.chatgpt.com/ko-KR/docs/skills-and-plugins");
-  s.addNotes("[Sources]\nhttps://learn.chatgpt.com/ko-KR/docs/skills-and-plugins");
-}
-
-/* ───────────────────────── 07 · FLOW ───────────────────────── */
-{
-  const s = newSlide();
-  head(s, "03 어떻게 고르는가", "앞 단계에서 나온 것이 다음 단계의 재료가 됩니다");
+  head(s, "03 어떤 Skill이 있는가", "앞 단계에서 나온 것이 다음 단계의 재료가 됩니다");
   const n = 5, gap = 0.24, cw = (CW - gap*(n-1))/n;
 
   //     [ 우리말 단계 이름 ,  원래 Skill 이름 ,  이 단계에서 나오는 것 ]
@@ -336,10 +293,10 @@ function callout(s, txt, y, opt){
   foot(s, "TDD = 실패하는 테스트를 먼저 쓰고, 그 테스트를 통과시키는 코드를 쓰는 방식 · 각 단계에 쓰이는 Skill은 다음 장부터 살펴봅니다.");
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers");
 }
-/* ───────────────────────── 08 · MAP ───────────────────────── */
+/* ───────────────────────── 07 · MAP ───────────────────────── */
 {
   const s = newSlide();
-  head(s, "03 어떻게 고르는가", "14개 Skill은 세 묶음으로 나뉩니다");
+  head(s, "03 어떤 Skill이 있는가", "14개 Skill은 세 묶음으로 나뉩니다");
   const groups = [
     ["4","계획 · 준비","코드를 쓰기 전에 무엇을 만들지, 어떤 순서로 할지 확정합니다.", P.card, P.ink, P.line],
     ["4","구현 · 협업","계획을 지키면서 작은 결과를 만들고 계속 확인합니다.", P.blueSoft, P.blueDk, P.blueLine],
@@ -363,7 +320,7 @@ function callout(s, txt, y, opt){
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers/tree/main/skills");
 }
 
-/* ───────────── 09~11 · SKILL GROUPS ───────────── */
+/* ───────────── 08~10 · SKILL GROUPS ───────────── */
 function skillSlide(kicker, title, cols, items, summary, note){
   const s = newSlide();
   head(s, kicker, title);
@@ -385,7 +342,7 @@ function skillSlide(kicker, title, cols, items, summary, note){
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers/tree/main/skills");
 }
 
-skillSlide("03 어떻게 고르는가", "① 계획 · 준비 — 코드를 쓰기 전에 범위를 확정합니다", 2, [
+skillSlide("03 어떤 Skill이 있는가", "① 계획 · 준비 — 코드를 쓰기 전에 범위를 확정합니다", 2, [
   ["using-superpowers","작업을 시작하기 전에 지금 상황에 맞는 Skill이 있는지 먼저 확인하고 사용합니다."],
   ["brainstorming","코딩 전에 질문 → 대안 → 설계를 정리합니다. 승인 전에는 구현하지 않습니다."],
   ["writing-plans","승인된 설계를 파일·테스트·작업 순서로 잘게 나눈 구현 계획서로 만듭니다."],
@@ -393,7 +350,7 @@ skillSlide("03 어떻게 고르는가", "① 계획 · 준비 — 코드를 쓰�
 ], "공통 목적 — 코드를 쓰기 전에 “범위”와 “순서”를 확정합니다",
    "Skill 이름은 Superpowers 6.3.0 기준입니다.");
 
-skillSlide("03 어떻게 고르는가", "② 구현 · 협업 — 계획대로 작게 만들고 계속 확인합니다", 2, [
+skillSlide("03 어떤 Skill이 있는가", "② 구현 · 협업 — 계획대로 작게 만들고 계속 확인합니다", 2, [
   ["test-driven-development","실패하는 테스트를 먼저 만들고, 그것을 통과하는 최소한의 코드를 씁니다."],
   ["executing-plans","작성된 계획을 체크포인트별로, 순서대로 실행합니다."],
   ["subagent-driven-development","작업마다 새 에이전트가 구현하고 단계마다 리뷰를 받습니다."],
@@ -401,7 +358,7 @@ skillSlide("03 어떻게 고르는가", "② 구현 · 협업 — 계획대로 �
 ], "공통 목적 — 계획을 지키면서 작은 결과를 만들고 매번 확인합니다",
    "Subagent 관련 기능은 사용 환경과 설정에 따라 달라질 수 있습니다.");
 
-skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결과로 마무리합니다", 3, [
+skillSlide("03 어떤 Skill이 있는가", "③ 품질 · 완료 — 확인된 결과로 마무리합니다", 3, [
   ["systematic-debugging","추측 대신 재현 → 증거 → 원인 순으로 확인합니다."],
   ["requesting-code-review","요구사항과 구현이 맞는지 검토를 요청합니다."],
   ["receiving-code-review","받은 피드백을 그대로 받지 않고 검증한 뒤 반영합니다."],
@@ -410,6 +367,49 @@ skillSlide("03 어떻게 고르는가", "③ 품질 · 완료 — 확인된 결�
   ["writing-skills","새 Skill을 직접 만들고 수정 · 검증합니다."],
 ], "공통 목적 — “된 것 같다”가 아니라 확인된 결과로 끝냅니다",
    "Skill 이름은 Superpowers 6.3.0 기준입니다. · github.com/obra/superpowers/tree/main/skills");
+
+/* ───────────────────────── 11 · HOW MODEL PICKS ───────────────────────── */
+{
+  const s = newSlide();
+  head(s, "04 어떻게 쓰는가", "모델은 요청과 Skill 설명을 비교해 절차를 고릅니다");
+  const n = 5, gap = 0.22, cw = (CW - gap*(n-1))/n, ch = 2.02;
+  const steps = [
+    ["사용자 요청","“오류 원인을 찾아줘”"],
+    ["Skill 목록 확인","이름과 설명을 훑습니다"],
+    ["용도 비교","요청과 맞는지 판단합니다"],
+    ["Skill 호출","전체 지침을 읽습니다"],
+    ["절차 실행","진단·검증을 수행합니다"],
+  ];
+  steps.forEach((st,i)=>{
+    const x = MX + i*(cw+gap);
+    const hot = (i===1 || i===3);
+    rrect(s, { x, y:TOP+0.1, w:cw, h:ch, fill: hot ? P.blueSoft : P.card, lineColor: hot ? P.blueLine : P.line });
+    chip(s, x+0.3, TOP+0.4, String(i+1), { d:0.34, fs:12, fill: hot ? P.blue : P.ink });
+    s.addText(st[0], { isTextBox:true, x:x+0.26, y:TOP+0.94, w:cw-0.52, h:0.36, margin:0,
+      fontFace:F, fontSize:13.5, bold:true, color:P.ink });
+    s.addText(st[1], { isTextBox:true, x:x+0.26, y:TOP+1.34, w:cw-0.52, h:0.56, margin:0,
+      fontFace:F, fontSize:11, color:P.gray, lineSpacingMultiple:1.2 });
+    if (i < n-1){
+      s.addText("›", { isTextBox:true, x:x+cw, y:TOP+0.9, w:gap, h:0.4, margin:0, align:"center",
+        fontFace:F, fontSize:22, bold:true, color:P.gray2 });
+    }
+  });
+  const bw = (CW - 0.4)/2, by = 4.34, bh = 1.5;
+  const boxes = [
+    { t:"자동 호출", d:"요청의 의미가 Skill 설명과 맞으면 모델이 알아서 선택합니다.", hot:true },
+    { t:"직접 호출", d:"Codex에서 $로 고르거나 “Brainstorming Skill을 써줘”라고 지정합니다.", hot:false },
+  ];
+  boxes.forEach((b,i)=>{
+    const x = MX + i*(bw+0.4);
+    rrect(s, { x, y:by, w:bw, h:bh, fill: b.hot ? P.ink : P.card, lineColor: b.hot ? null : P.line });
+    s.addText(b.t, { isTextBox:true, x:x+0.42, y:by+0.3, w:bw-0.84, h:0.34, margin:0,
+      fontFace:F, fontSize:15, bold:true, color: b.hot ? P.amber : P.ink });
+    s.addText(b.d, { isTextBox:true, x:x+0.42, y:by+0.72, w:bw-0.84, h:0.6, margin:0,
+      fontFace:F, fontSize:12.5, color: b.hot ? "C3CFE2" : P.gray, lineSpacingMultiple:1.25 });
+  });
+  foot(s, "출처 · learn.chatgpt.com/ko-KR/docs/skills-and-plugins");
+  s.addNotes("[Sources]\nhttps://learn.chatgpt.com/ko-KR/docs/skills-and-plugins");
+}
 
 /* ───────────────────────── 12 · INSTALL ───────────────────────── */
 {
