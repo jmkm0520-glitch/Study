@@ -272,43 +272,65 @@ function callout(s, txt, y, opt){
 /* ───────────────────────── 07 · FLOW ───────────────────────── */
 {
   const s = newSlide();
-  head(s, "03 어떻게 고르는가", "아이디어에서 완료까지, 한 줄로 이어집니다");
-  const n = 5, gap = 0.24, cw = (CW - gap*(n-1))/n, ch = 2.3;
-  const fills = ["F2F4F8","E4EBFB","CBD9FA","5B8BFF","0F1B33"];
-  const texts = [P.ink, P.ink, P.ink, P.white, P.white];
-  const subs  = [P.gray, P.gray, P.gray, "E4EBFB", "AFBFD6"];
+  head(s, "03 어떻게 고르는가", "앞 단계에서 나온 것이 다음 단계의 재료가 됩니다");
+  const n = 5, gap = 0.24, cw = (CW - gap*(n-1))/n;
+
   const stg = [
-    ["아이디어","만들고 싶은 것"],
-    ["Brainstorming","질문 · 대안 · 설계"],
-    ["Writing Plans","파일 · 테스트 · 순서"],
-    ["TDD 구현","RED → GREEN"],
-    ["검증 · 완료","테스트 · 리뷰 · 브랜치"],
+    ["아이디어",      "만들고 싶은 것 한 문장"],
+    ["Brainstorming", "확정된 요구사항과 설계"],
+    ["Writing Plans", "구현 계획서\n(파일·테스트·순서)"],
+    ["TDD 구현",      "테스트를 통과한 코드"],
+    ["검증 · 완료",   "테스트 기록과\n정리된 브랜치"],
   ];
+  const fills  = ["F2F4F8","E4EBFB","CBD9FA","5B8BFF","0F1B33"];
+  const titles = [P.ink, P.ink, P.ink, P.white, P.white];
+
+  // band A — 단계
+  const aY = 1.66, aH = 1.04;
+  s.addText("무엇을 하는 단계인가", { isTextBox:true, x:MX, y:aY-0.32, w:6, h:0.26, margin:0,
+    fontFace:F, fontSize:10.5, bold:true, color:P.gray2, charSpacing:0.6 });
   stg.forEach((g,i)=>{
     const x = MX + i*(cw+gap);
-    rrect(s, { x, y:TOP+0.2, w:cw, h:ch, fill:fills[i] });
-    s.addText(String(i+1).padStart(2,"0"), { isTextBox:true, x:x+0.26, y:TOP+0.48, w:cw-0.52, h:0.28, margin:0,
-      fontFace:F, fontSize:11, bold:true, color: i>=3 ? "9FB8FF" : P.gray2 });
-    s.addText(g[0], { isTextBox:true, x:x+0.26, y:TOP+0.92, w:cw-0.52, h:0.66, margin:0,
-      fontFace:F, fontSize:14.5, bold:true, color:texts[i], lineSpacingMultiple:1.1 });
-    s.addText(g[1], { isTextBox:true, x:x+0.26, y:TOP+1.66, w:cw-0.52, h:0.5, margin:0,
-      fontFace:F, fontSize:11, color:subs[i], lineSpacingMultiple:1.2 });
+    rrect(s, { x, y:aY, w:cw, h:aH, fill:fills[i] });
+    s.addText(String(i+1).padStart(2,"0"), { isTextBox:true, x:x+0.26, y:aY+0.16, w:cw-0.52, h:0.24, margin:0,
+      fontFace:F, fontSize:10.5, bold:true, color: i>=3 ? "9FB8FF" : P.gray2 });
+    s.addText(g[0], { isTextBox:true, x:x+0.26, y:aY+0.46, w:cw-0.52, h:0.46, margin:0,
+      fontFace:F, fontSize:14, bold:true, color:titles[i], lineSpacingMultiple:1.05 });
     if (i < n-1){
-      s.addText("→", { isTextBox:true, x:x+cw, y:TOP+1.15, w:gap, h:0.4, margin:0, align:"center",
+      s.addText("→", { isTextBox:true, x:x+cw, y:aY+0.34, w:gap, h:0.36, margin:0, align:"center",
         fontFace:F, fontSize:13, bold:true, color:P.gray2 });
     }
   });
-  rrect(s, { x:MX, y:4.68, w:CW, h:1.02, fill:P.amberSoft, r:0.06 });
+
+  // band B — 산출물
+  const bY = 3.36, bH = 1.44;
+  s.addText("그래서 무엇이 나오는가", { isTextBox:true, x:MX, y:bY-0.34, w:6, h:0.26, margin:0,
+    fontFace:F, fontSize:10.5, bold:true, color:P.blue, charSpacing:0.6 });
+  stg.forEach((g,i)=>{
+    const x = MX + i*(cw+gap);
+    s.addText("↓", { isTextBox:true, x, y:aY+aH+0.02, w:cw, h:0.26, margin:0, align:"center",
+      fontFace:F, fontSize:13, bold:true, color:P.blueLine });
+    rrect(s, { x, y:bY, w:cw, h:bH, fill:P.white, lineColor:P.blueLine });
+    s.addText(g[1], { isTextBox:true, x:x+0.26, y:bY+0.24, w:cw-0.52, h:bH-0.48, margin:0,
+      fontFace:F, fontSize:11.5, color:P.ink3, lineSpacingMultiple:1.3 });
+  });
+
+  // 오류가 났을 때의 갈림길
+  const dY = 5.14, dH = 1.06;
+  rrect(s, { x:MX, y:dY, w:CW, h:dH, fill:P.amberSoft, r:0.06 });
+  s.addShape(pres.ShapeType.roundRect, { x:MX+0.34, y:dY+0.34, w:1.24, h:0.38, rectRadius:0.19,
+    fill:{ color:P.amber }, line:{ type:"none" } });
+  s.addText("오류 발생 시", { isTextBox:true, x:MX+0.34, y:dY+0.34, w:1.24, h:0.38, margin:0,
+    align:"center", valign:"middle", fontFace:F, fontSize:10.5, bold:true, color:P.white });
   s.addText([
-    { text:"작업 중 오류가 생기면  ", options:{ color:"8A6A44" } },
-    { text:"Systematic Debugging", options:{ bold:true, color:"B4651F" } },
-    { text:"  으로 원인부터 찾은 뒤 다시 흐름에 복귀합니다.", options:{ color:"8A6A44" } },
-  ], { isTextBox:true, x:MX+0.3, y:4.68, w:CW-0.6, h:1.02, margin:0, align:"center", valign:"middle",
-       fontFace:F, fontSize:13 });
-  callout(s, "이해 → 계획 → 구현 → 검증. 각 단계의 결과가 다음 단계의 입력이 됩니다.", 5.94);
+    { text:"Systematic Debugging", options:{ bold:true, color:"A9541A" } },
+    { text:" 으로 재현 → 증거 → 원인을 확인한 뒤, 멈췄던 단계로 돌아갑니다.", options:{ color:"7E6242" } },
+  ], { isTextBox:true, x:MX+1.76, y:dY, w:CW-2.1, h:dH, margin:0, valign:"middle",
+       fontFace:F, fontSize:12.5 });
+
+  foot(s, "Superpowers가 각 단계에 어떤 Skill을 쓰는지는 다음 장부터 살펴봅니다.");
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers");
 }
-
 /* ───────────────────────── 08 · MAP ───────────────────────── */
 {
   const s = newSlide();
