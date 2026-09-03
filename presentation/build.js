@@ -130,7 +130,7 @@ function callout(s, txt, y, opt){
 /* ───────────────────────── 03 · WHY ───────────────────────── */
 {
   const s = newSlide();
-  head(s, "01 왜 필요한가", "바로 코딩하면 빠르지만, 방향이 어긋난 뒤에 알게 됩니다");
+  head(s, "01 왜 필요한가", "바로 코딩하면 빠르지만, 방향이 어긋날 위험이 있습니다");
   const cw = (CW - 0.4)/2, y = TOP, ch = 4.16;
 
   // left
@@ -154,7 +154,7 @@ function callout(s, txt, y, opt){
   bullets(s, ["시작 전에 방향을 먼저 맞춥니다","계획과 테스트가 파일로 남습니다","끝에는 증거로 완료를 확인합니다"],
     { x:rx+0.42, y:y+1.78, w:cw-0.84, h:2.0, fs:12.5, gap:19, color:"C3CFE2" });
 
-  callout(s, "핵심 — 모델의 지능보다 “일하는 순서”를 먼저 정합니다", 6.06);
+  callout(s, "핵심 — AI가 얼마나 똑똑한지보다, 어떤 순서로 일하게 하는지가 결과를 좌우합니다", 6.06);
   s.addNotes("[Sources]\nhttps://github.com/obra/superpowers");
 }
 
